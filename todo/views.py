@@ -7,6 +7,11 @@ def TodoAppView(request):
     print(all_items)
     return render(request, 'todolist.html', {'all_items': all_items, 'ACTION_URL': '/todo/'})
 
+def DeleteTodo(_,item_id):
+    item_to_delete= Item.objects.get(id=item_id)
+    item_to_delete.delete()
+    return HttpResponseRedirect('/')
+    
 def AddTodo(request):
     new_item = Item(content=request.POST['content'])
     if request.POST['content'].strip() != '':
